@@ -1,31 +1,62 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# Upptime config for the public status page https://status.veka.gg (https://upptime.js.org).
+# Only public, visitor-facing services go here. Grafana, TrueNAS, Proxmox and other internal pages stay internal.
+# The checks run on GitHub's servers, so the page keeps working (and shows the outage) when VEKA is down.
+
+owner: VEKAgg
+repo: status.veka.gg
+
+# Every 5 minutes, the shortest GitHub Actions allows.
+workflowSchedule:
+  uptime: "*/5 * * * *"
+  responseTime: "0 23 * * *"
+  graphs: "0 0 * * *"
+  summary: "0 0 * * *"
+  staticSite: "0 1 * * *"
+
+user-agent: veka-status-page (upptime)
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
+  # ---- main site and community websites ----
+  - name: VEKA website
+    url: https://veka.gg/
+    slug: veka-website
+  - name: FH6 India Hub
+    url: https://fh6.veka.gg/
+  - name: Interstellar Goodfellas (IGFV)
+    url: https://igfv.veka.gg/
+  - name: The True Troopers (TTTR)
+    url: https://tttr.veka.gg/
+  - name: TwistedVorteK
+    url: https://tv.veka.gg/
+  - name: VorteK Academy
+    url: https://va.veka.gg/
+  # Personal portfolio, not a VEKA service: uncomment to show it.
+  # - name: Shafaat portfolio
+  #   url: https://s.veka.gg/
+
+  # ---- member services ----
+  # Health URLs, not the login pages: they answer quickly and only fail when the app itself is broken.
+  - name: VEKA Cloud (Nextcloud)
+    url: https://cloud.veka.gg/status.php
+    slug: cloud
+  - name: VEKA Photos (Immich)
+    url: https://photo.veka.gg/api/server/ping
+    slug: photos
+  - name: VEKA Git (Forgejo)
+    url: https://git.veka.gg/api/healthz
+    slug: git
+
+  # Not checked: the Discord bot and api.veka.gg have no public URL. Add them here once they have a health URL.
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  cname: status.veka.gg
+  name: VEKA Status
+  logoUrl: https://raw.githubusercontent.com/VEKAgg/status.veka.gg/master/assets/veka-logo.svg
+  favicon: https://raw.githubusercontent.com/VEKAgg/status.veka.gg/master/assets/veka-logo.svg
+  introTitle: "**VEKA** service status"
+  introMessage: Live status of VEKA's websites and services, checked every 5 minutes from outside our network.
   navbar:
     - title: Status
       href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
-
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+    - title: VEKA
+      href: https://veka.gg
