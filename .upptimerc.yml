@@ -60,3 +60,42 @@ status-website:
       href: /
     - title: VEKA
       href: https://veka.gg
+
+  # Look of veka.gg: dark greys, orange accent (#ff5722), Orbitron headings, Inter text.
+  # Always dark, like veka.gg. Green/red still mean up/down, as on every status page.
+  theme: dark
+  links:
+    - rel: preconnect
+      href: https://fonts.gstatic.com
+      crossorigin: anonymous
+    - rel: stylesheet
+      href: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@600;700&display=swap
+  css: >-
+    :root {
+      --body-background-color: #1c1c1f;
+      --body-text-color: #f4f4f5;
+      --card-background-color: #27272b;
+      --card-border-color: #3a3a40;
+      --nav-background-color: #232327;
+      --nav-border-bottom-color: #3a3a40;
+      --nav-current-border-bottom-color: #ff5722;
+      --tag-color: #1c1c1f;
+      --error-button-border-color: #ff5722;
+      --error-button-background-color: #ff5722;
+      --error-button-color: #ffffff;
+      --submit-button-border-color: #ff5722;
+      --submit-button-background-color: #ff5722;
+      --submit-button-color: #ffffff;
+    }
+    /* The response-time graph is each card's background image (teal). Draw a copy turned orange on top of it. */
+    article.graph { position: relative; isolation: isolate; }
+    article.graph::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+      background-image: inherit; background-size: inherit; background-position: inherit; background-repeat: inherit;
+      filter: hue-rotate(200deg) saturate(3.5) brightness(0.9); }
+    body { font-family: Inter, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    h1, h2, nav .logo div { font-family: Orbitron, Inter, sans-serif !important; letter-spacing: 0.02em; }
+    h1 strong { color: #ff5722 !important; }
+    a { color: #ff7a45; }
+    nav a { color: #f5f5f5 !important; }
+    nav a:hover, nav a[aria-current] { color: #ff5722 !important; }
+    .submit-button { background: #ff5722 !important; }
