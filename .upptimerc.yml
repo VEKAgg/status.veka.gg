@@ -1,10 +1,8 @@
 # Upptime config for the public status page https://status.veka.gg (https://upptime.js.org).
 # Only public, visitor-facing services go here. Grafana, TrueNAS, Proxmox and other internal pages stay internal.
 # The checks run on GitHub's servers, so the page keeps working (and shows the outage) when VEKA is down.
-
 owner: VEKAgg
 repo: status.veka.gg
-
 # Every 5 minutes, the shortest GitHub Actions allows.
 workflowSchedule:
   uptime: "*/5 * * * *"
@@ -12,42 +10,45 @@ workflowSchedule:
   graphs: "0 0 * * *"
   summary: "0 0 * * *"
   staticSite: "0 1 * * *"
-
 user-agent: veka-status-page (upptime)
-
 sites:
-  # ---- main site and community websites ----
-  - name: VEKA website
-    url: https://veka.gg/
-    slug: veka-website
-  - name: FH6 India Hub
-    url: https://fh6.veka.gg/
-  - name: Interstellar Goodfellas (IGFV)
-    url: https://igfv.veka.gg/
-  - name: The True Troopers (TTTR)
-    url: https://tttr.veka.gg/
-  - name: TwistedVorteK
-    url: https://tv.veka.gg/
-  - name: VorteK Academy
-    url: https://va.veka.gg/
+# ---- main site and community websites ----
+- name: VEKA website
+  url: https://veka.gg/
+  slug: veka-website
+- name: FH6 India Hub
+  url: https://fh6.veka.gg/
+- name: Interstellar Goodfellas (IGFV)
+  url: https://igfv.veka.gg/
+- name: The True Troopers (TTTR)
+  url: https://tttr.veka.gg/
+- name: TwistedVorteK
+  url: https://tv.veka.gg/
+- name: VorteK Academy
+  url: https://va.veka.gg/
+# ---- member services ----
+# Health URLs, not the login pages: they answer quickly and only fail when the app itself is broken.
+- name: VEKA Cloud (Nextcloud)
   # Personal portfolio, not a VEKA service: uncomment to show it.
   # - name: Shafaat portfolio
   #   url: https://s.veka.gg/
 
-  # ---- member services ----
-  # Health URLs, not the login pages: they answer quickly and only fail when the app itself is broken.
-  - name: VEKA Cloud (Nextcloud)
-    url: https://cloud.veka.gg/status.php
-    slug: cloud
-  - name: VEKA Photos (Immich)
-    url: https://photo.veka.gg/api/server/ping
-    slug: photos
-  - name: VEKA Git (Forgejo)
-    url: https://git.veka.gg/api/healthz
-    slug: git
-
-  # Not checked: the Discord bot and api.veka.gg have no public URL. Add them here once they have a health URL.
-
+  url: https://cloud.veka.gg/status.php
+  slug: cloud
+- name: VEKA Photos (Immich)
+  url: https://photo.veka.gg/api/server/ping
+  slug: photos
+- name: VEKA Git (Forgejo)
+  url: https://git.veka.gg/api/healthz
+  slug: git
+# ---- Discord bot ----
+# The bot API's /v1/health has no auth; bot.online is true while the bot's heartbeat is under 3 minutes old.
+# Uncomment once api.veka.gg is public (Traefik route + Cloudflare Tunnel hostname, see the bot's
+# docs/DASHBOARD_API_DEPLOY.md). Today its public DNS points to a LAN IP, so GitHub can't reach it.
+- name: VEKA Discord Bot
+  url: https://api.veka.gg/v1/health
+  slug: discord-bot
+  __dangerous__body_down_if_text_missing: '"online":true'
 status-website:
   cname: status.veka.gg
   name: VEKA Status
@@ -56,22 +57,23 @@ status-website:
   introTitle: "**VEKA** service status"
   introMessage: Live status of VEKA's websites and services, checked every 5 minutes from outside our network.
   navbar:
-    - title: Status
-      href: /
-    - title: VEKA
-      href: https://veka.gg
-
+  - title: Status
+    href: /
+  - title: VEKA
+    href: https://veka.gg
   # Look of veka.gg: dark greys, orange accent (#ff5722), Orbitron headings, Inter text.
   # Always dark, like veka.gg. Green/red still mean up/down, as on every status page.
   theme: dark
   links:
-    - rel: preconnect
-      href: https://fonts.gstatic.com
-      crossorigin: anonymous
-    - rel: stylesheet
-      href: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@600;700&display=swap
+  - rel: preconnect
+    href: https://fonts.gstatic.com
+    crossorigin: anonymous
+  - rel: stylesheet
+    href: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@600;700&display=swap
   css: >-
     :root {
+
+
       --body-background-color: #1c1c1f;
       --body-text-color: #f4f4f5;
       --card-background-color: #27272b;
@@ -86,16 +88,9 @@ status-website:
       --submit-button-border-color: #ff5722;
       --submit-button-background-color: #ff5722;
       --submit-button-color: #ffffff;
-    }
-    /* The response-time graph is each card's background image (teal). Draw a copy turned orange on top of it. */
-    article.graph { position: relative; isolation: isolate; }
-    article.graph::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+    } /* The response-time graph is each card's background image (teal). Draw a copy turned orange on top of it. */ article.graph { position: relative; isolation: isolate; } article.graph::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+
+
       background-image: inherit; background-size: inherit; background-position: inherit; background-repeat: inherit;
       filter: hue-rotate(200deg) saturate(3.5) brightness(0.9); }
-    body { font-family: Inter, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    h1, h2, nav .logo div { font-family: Orbitron, Inter, sans-serif !important; letter-spacing: 0.02em; }
-    h1 strong { color: #ff5722 !important; }
-    a { color: #ff7a45; }
-    nav a { color: #f5f5f5 !important; }
-    nav a:hover, nav a[aria-current] { color: #ff5722 !important; }
-    .submit-button { background: #ff5722 !important; }
+    body { font-family: Inter, -apple-system, "Segoe UI", Roboto, sans-serif; } h1, h2, nav .logo div { font-family: Orbitron, Inter, sans-serif !important; letter-spacing: 0.02em; } h1 strong { color: #ff5722 !important; } a { color: #ff7a45; } nav a { color: #f5f5f5 !important; } nav a:hover, nav a[aria-current] { color: #ff5722 !important; } .submit-button { background: #ff5722 !important; }
