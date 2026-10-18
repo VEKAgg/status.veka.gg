@@ -42,9 +42,7 @@ sites:
   url: https://git.veka.gg/api/healthz
   slug: git
 # ---- Discord bot ----
-# The bot API's /v1/health has no auth; bot.online is true while the bot's heartbeat is under 3 minutes old.
-# Uncomment once api.veka.gg is public (Traefik route + Cloudflare Tunnel hostname, see the bot's
-# docs/DASHBOARD_API_DEPLOY.md). Today its public DNS points to a LAN IP, so GitHub can't reach it.
+# Down when the API is unreachable or the bot's heartbeat is over 3 minutes old.
 - name: VEKA Discord Bot
   url: https://api.veka.gg/v1/health
   slug: discord-bot
