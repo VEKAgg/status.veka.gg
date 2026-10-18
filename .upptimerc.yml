@@ -16,6 +16,12 @@ sites:
 - name: VEKA website
   url: https://veka.gg/
   slug: veka-website
+# ---- Discord bot ----
+# Down when the API is unreachable or the bot's heartbeat is over 3 minutes old.
+- name: VEKA Discord Bot
+  url: https://api.veka.gg/v1/health
+  slug: discord-bot
+  __dangerous__body_down_if_text_missing: '"online":true'
 - name: FH6 India Hub
   url: https://fh6.veka.gg/
 - name: Interstellar Goodfellas (IGFV)
@@ -41,12 +47,6 @@ sites:
 - name: VEKA Git (Forgejo)
   url: https://git.veka.gg/api/healthz
   slug: git
-# ---- Discord bot ----
-# Down when the API is unreachable or the bot's heartbeat is over 3 minutes old.
-- name: VEKA Discord Bot
-  url: https://api.veka.gg/v1/health
-  slug: discord-bot
-  __dangerous__body_down_if_text_missing: '"online":true'
 status-website:
   cname: status.veka.gg
   name: VEKA Status
@@ -72,6 +72,7 @@ status-website:
     :root {
 
 
+
       --body-background-color: #1c1c1f;
       --body-text-color: #f4f4f5;
       --card-background-color: #27272b;
@@ -87,6 +88,7 @@ status-website:
       --submit-button-background-color: #ff5722;
       --submit-button-color: #ffffff;
     } /* The response-time graph is each card's background image (teal). Draw a copy turned orange on top of it. */ article.graph { position: relative; isolation: isolate; } article.graph::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+
 
 
       background-image: inherit; background-size: inherit; background-position: inherit; background-repeat: inherit;
